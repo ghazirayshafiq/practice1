@@ -1,0 +1,33 @@
+apiVersion: v1/apps
+kind: Deployment
+metadata:
+  name: practice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: practice
+  template:
+    metadata:
+      labels:
+        app: practice
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: practice-service
+spec:
+  selector:
+    app: practice
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
